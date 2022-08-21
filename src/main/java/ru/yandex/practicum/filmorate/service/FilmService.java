@@ -32,14 +32,14 @@ public class FilmService {
     }
 
     public void addLike(int filmId, int userId) {
-        if (!(filmStorage.getFilmById(filmId) == null) && !(userService.getUserById(userId) == null)) {
-            filmStorage.getFilmById(filmId).addLike(userId);
+        if (!(filmStorage.getById(filmId) == null) && !(userService.getUserById(userId) == null)) {
+            filmStorage.getById(filmId).addLike(userId);
         }
     }
 
     public void removeLike(Integer userId, Integer filmId) {
-        if (!(filmStorage.getFilmById(filmId) == null) && !(userService.getUserById(userId) == null)) {
-            filmStorage.getFilmById(filmId).removeLike(userId);
+        if (!(filmStorage.getById(filmId) == null) && !(userService.getUserById(userId) == null)) {
+            filmStorage.getById(filmId).removeLike(userId);
         }
     }
 
@@ -51,7 +51,7 @@ public class FilmService {
     }
 
     public Film getFilmById(int id) {
-        return filmStorage.getFilmById(id);
+        return filmStorage.getById(id);
     }
 
 }

@@ -25,7 +25,7 @@ public class InMemoryUserStorage implements UserStorage {
         if (users.containsKey(user.getId())) {
             throw new ConflictException("Указанный id уже используется");
         }
-        defineUserName(user);
+        defineName(user);
         user.setId(++id);
         users.put(user.getId(), user);
         log.debug("Добавлен новый пользователь: {}", user);
@@ -38,7 +38,7 @@ public class InMemoryUserStorage implements UserStorage {
             throw new NotFoundException("Не существует пользователя с указанным id: " + user.getId());
         }
 
-        defineUserName(user);
+        defineName(user);
 
         users.put(user.getId(), user);
         log.debug("Обновлена карточка пользователя: {}", user);
@@ -46,14 +46,14 @@ public class InMemoryUserStorage implements UserStorage {
         return user;
     }
 
-    public User getUserById(int id) {
+    public User getById(int id) {
         if (!users.containsKey(id)) {
             throw new NotFoundException("Не существует пользователя с указанным id: " + id);
         }
         return users.get(id);
     }
 
-    private void defineUserName(User user) {
+    private void defineName(User user) {
         if (user.getName().isBlank()) {
             user.setName(user.getLogin());
         }

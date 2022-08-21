@@ -12,7 +12,7 @@ public interface FilmStorage {
 
     Film update(Film film);
 
-    Film getFilmById(int id);
+    Film getById(int id);
 
     Set<Film> getPopular();
 }

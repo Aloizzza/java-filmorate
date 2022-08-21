@@ -31,7 +31,7 @@ public class UserService {
     }
 
     public void addFriend(int userId, int friendId) {
-        if (!(userStorage.getUserById(userId)==null) && !(userStorage.getUserById(friendId)==null)) {
+        if (!(userStorage.getById(userId)==null) && !(userStorage.getById(friendId)==null)) {
             getUserById(userId).addFriend(friendId);
             getUserById(friendId).addFriend(userId);
         }
@@ -56,14 +56,14 @@ public class UserService {
         List<User> commonFriends = new ArrayList<>();
         for (int userFriend : userFriends) {
             if (otherFriends.contains(userFriend)) {
-                commonFriends.add(userStorage.getUserById(userFriend));
+                commonFriends.add(userStorage.getById(userFriend));
             }
         }
         return commonFriends;
     }
 
     public User getUserById(int id) {
-        return userStorage.getUserById(id);
+        return userStorage.getById(id);
     }
 
 }

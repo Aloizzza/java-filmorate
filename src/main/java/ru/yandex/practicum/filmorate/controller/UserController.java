@@ -1,10 +1,7 @@
 package ru.yandex.practicum.filmorate.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.yandex.practicum.filmorate.exception.ErrorResponse;
-import ru.yandex.practicum.filmorate.exception.NotFoundException;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.service.UserService;
 
@@ -38,7 +35,7 @@ public class UserController {
 
     @GetMapping("/{id}/friends/common/{otherId}")
     public List<User> getCommonFriends(@PathVariable("id") int id,
-                                         @PathVariable("otherId") int otherId) {
+                                       @PathVariable("otherId") int otherId) {
         return userService.getCommonFriends(id, otherId);
     }
 
@@ -62,12 +59,6 @@ public class UserController {
     public void removeFriend(@PathVariable("id") int id,
                              @PathVariable("friendId") int friendId) {
         userService.removeFriend(id, friendId);
-    }
-
-    @ExceptionHandler
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorResponse handleNotFound(final NotFoundException e) {
-        return new ErrorResponse("Пользователь не найден", e.getMessage());
     }
 
 }
