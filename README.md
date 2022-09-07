@@ -3,4 +3,4 @@
 Наше приложение **умеет**:
 1. Создан каркас WEB-приложения
 2. Создана схема БД
-![](C:\Users\Leonova\Desktop\Учеба\dev\java-filmorate\src\main\resources\filmorate.png)
+![Database diagram](src/main/resources/filmorate.png)
