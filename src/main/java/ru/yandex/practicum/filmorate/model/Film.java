@@ -1,6 +1,5 @@
 package ru.yandex.practicum.filmorate.model;
 
-import lombok.Data;
 import ru.yandex.practicum.filmorate.constraint.DateAfter;
 import ru.yandex.practicum.filmorate.exception.ConflictException;
 
@@ -11,7 +10,6 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
 public class Film {
     private int id;
 
@@ -45,5 +43,13 @@ public class Film {
 
     public Integer getLikes(int id) {
         return usersLikes.size();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
