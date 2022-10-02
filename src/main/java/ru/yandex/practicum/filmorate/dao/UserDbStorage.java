@@ -77,7 +77,7 @@ public class UserDbStorage implements UserStorage {
 
     @Override
     public Optional<User> update(User user) {
-        if (user.getId() <= 0 || user.getId() == null) {
+        if (user.getId() <= 0 || user.getId() == null || getById(user.getId()) == null) {
             throw new NotFoundException("id должен быть > 0");
         }
         jdbcTemplate.update(SQL_UPD_USERS, user.getName(), user.getLogin(), user.getEmail()
