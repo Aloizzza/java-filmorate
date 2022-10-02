@@ -69,7 +69,6 @@ public class FilmDbStorage implements FilmStorage {
             }
         }
 
-
         return Optional.of(film);
     }
 
@@ -157,7 +156,7 @@ public class FilmDbStorage implements FilmStorage {
             film.setGenres(getGenres(film));
             return Optional.of(film);
         } else {
-            return Optional.empty();
+            throw new NotFoundException("По указанному id не найден фильм");
         }
 
     }

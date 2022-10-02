@@ -35,7 +35,7 @@ public class UserDbStorage implements UserStorage {
     @Override
     public Optional<User> getById(Integer id) {
         if (id == null || id <= 0) {
-            throw new NotFoundException("invalid id");
+            throw new NotFoundException("id должен быть >0");
         }
         SqlRowSet userRows = jdbcTemplate.queryForRowSet("SELECT * FROM users WHERE id_user = ?", id);
 
@@ -48,7 +48,7 @@ public class UserDbStorage implements UserStorage {
                     userRows.getDate("birthday").toLocalDate());
             return Optional.of(user);
         } else {
-            return Optional.empty();
+            throw new NotFoundException("По указанному id не найден пользователь");
         }
 
     }
@@ -59,7 +59,6 @@ public class UserDbStorage implements UserStorage {
         if (user.getName().equals("") || user.getName() == null) {
             user.setName(user.getLogin());
         }
-
 
         int id = getUserId();
         jdbcTemplate.update(SQL_INS_USERS, id, user.getName(), user.getLogin(), user.getEmail(), user.getBirthday());
@@ -77,7 +76,7 @@ public class UserDbStorage implements UserStorage {
 
     @Override
     public Optional<User> update(User user) {
-        if (user.getId() <= 0 || user.getId() == null) {
+        if (user.getId() <= 0 || user.getId() == null || getById(user.getId()).isEmpty()) {
             throw new NotFoundException("id должен быть > 0");
         }
         jdbcTemplate.update(SQL_UPD_USERS, user.getName(), user.getLogin(), user.getEmail()
