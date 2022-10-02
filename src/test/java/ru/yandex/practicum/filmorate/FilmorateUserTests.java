@@ -36,13 +36,10 @@ class FilmorateUserTests {
 
     @Test
     void userControllerInvalidEmailTest() {
-
         User user1 = new User(1, "user1.example", "User1"
                 , "user1", LocalDate.of(2000, 1, 1));
 
-
         assertThrows(RuntimeException.class, () -> userController.create(user1));
-
     }
 
     @Test
@@ -74,11 +71,10 @@ class FilmorateUserTests {
     public void userControllerUpdateTest() {
         User user = new User(1, "user1@example", "User1"
                 , "user1", LocalDate.of(2000, 1, 1));
-
-        User userUpd = new User(1, "userNew@example", "UserNew"
-                , "userNew", LocalDate.of(2002, 1, 1));
-
         userController.create(user);
+
+        User userUpd = new User(1, "user1upd@example", "User1upd"
+                , "user1upd", LocalDate.of(2000, 1, 11));
         userController.update(userUpd);
         Assertions.assertEquals(userController.getCountUsers(), 1);
     }

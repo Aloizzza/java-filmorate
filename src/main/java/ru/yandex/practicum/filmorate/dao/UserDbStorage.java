@@ -20,7 +20,7 @@ public class UserDbStorage implements UserStorage {
             "INSERT INTO users(id_user,name,login,email,birthday) values(?,?,?,?,?)";
     private static final String SQL_UPD_USERS = "UPDATE users SET name=?,login=?,email=?,birthday=? WHERE id_user=?";
     private static final String SQL_DEL_USERS = "DELETE FROM users WHERE id_user=?";
-    private static final String SQL_DEL_USERS_ALL = "DELETE FROM users";
+    private static final String SQL_DEL_USERS_ALL = "DELETE FROM friends; DELETE FROM rating; DELETE FROM users";
     private static final String SQL_INS_FRIENDS = "INSERT INTO friends(id_user,id_friend,status) values(?,?,1)";
     private static final String SQL_DEL_FRIENDS = "DELETE FROM friends WHERE id_user=? and id_friend=?";
 
@@ -79,6 +79,9 @@ public class UserDbStorage implements UserStorage {
         if (user.getId() <= 0 || user.getId() == null) {
             throw new NotFoundException("id должен быть > 0");
         }
+        if (getById(user.getId()).isEmpty()) {
+            throw new NotFoundException("пользователь для update не найден");
+        }
         jdbcTemplate.update(SQL_UPD_USERS, user.getName(), user.getLogin(), user.getEmail()
                 , user.getBirthday(), user.getId());
         return Optional.of(user);
@@ -109,6 +112,7 @@ public class UserDbStorage implements UserStorage {
     @Override
     public void deleteAll() {
         jdbcTemplate.update(SQL_DEL_USERS_ALL);
+        userId = 0;
     }
 
     @Override

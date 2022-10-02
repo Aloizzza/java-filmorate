@@ -33,7 +33,7 @@ public class FilmDbStorage implements FilmStorage {
             "MERGE INTO FILM_GENRE_LINK (ID_FILM, ID_GENRE) KEY (ID_FILM, ID_GENRE) VALUES (?, ?)";
     private static final String SQL_DEL_FILM =
             "DELETE FROM films WHERE id_film=?;DELETE FROM FILM_GENRE_LINK WHERE ID_FILM=?";
-    private static final String SQL_DEL_FILM_ALL = "DELETE FROM FILM_GENRE_LINK; DELETE FROM films";
+    private static final String SQL_DEL_FILM_ALL = "DELETE FROM FILM_GENRE_LINK; DELETE FROM rating; DELETE FROM films";
     private static final String SQL_INS_RATING = "INSERT INTO rating(id_user,id_film) VALUES(?,?)";
     private static final String SQL_DEL_RATING = "DELETE FROM rating WHERE id_user=? AND id_film=?";
 
@@ -95,7 +95,6 @@ public class FilmDbStorage implements FilmStorage {
             }
             film.setGenres(getGenres(film));
         }
-
         return Optional.of(film);
     }
 
@@ -133,6 +132,7 @@ public class FilmDbStorage implements FilmStorage {
     @Override
     public void deleteAll() {
         jdbcTemplate.update(SQL_DEL_FILM_ALL);
+        filmId = 0;
     }
 
     @Override

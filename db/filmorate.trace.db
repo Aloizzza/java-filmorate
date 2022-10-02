@@ -1,0 +1,28 @@
+2022-10-02 18:36:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "DELETE FROM films[*], DELETE FROM FILM_GENRE_LINK; DELETE FROM rating"
+Syntax error in SQL statement "DELETE FROM films[*], DELETE FROM FILM_GENRE_LINK; DELETE FROM rating"; SQL statement:
+DELETE FROM films, DELETE FROM FILM_GENRE_LINK; DELETE FROM rating [42000-214]
+2022-10-02 18:36:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "DELETE FROM films[*], DELETE FROM FILM_GENRE_LINK; DELETE FROM rating"
+Syntax error in SQL statement "DELETE FROM films[*], DELETE FROM FILM_GENRE_LINK; DELETE FROM rating"; SQL statement:
+DELETE FROM films, DELETE FROM FILM_GENRE_LINK; DELETE FROM rating [42000-214]
+2022-10-02 18:36:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "DELETE FROM films[*], DELETE FROM FILM_GENRE_LINK; DELETE FROM rating"
+Syntax error in SQL statement "DELETE FROM films[*], DELETE FROM FILM_GENRE_LINK; DELETE FROM rating"; SQL statement:
+DELETE FROM films, DELETE FROM FILM_GENRE_LINK; DELETE FROM rating [42000-214]
+2022-10-02 18:36:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "DELETE FROM films[*], DELETE FROM FILM_GENRE_LINK; DELETE FROM rating"
+Syntax error in SQL statement "DELETE FROM films[*], DELETE FROM FILM_GENRE_LINK; DELETE FROM rating"; SQL statement:
+DELETE FROM films, DELETE FROM FILM_GENRE_LINK; DELETE FROM rating [42000-214]
+2022-10-02 18:36:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "DELETE FROM films[*], DELETE FROM FILM_GENRE_LINK; DELETE FROM rating"
+Syntax error in SQL statement "DELETE FROM films[*], DELETE FROM FILM_GENRE_LINK; DELETE FROM rating"; SQL statement:
+DELETE FROM films, DELETE FROM FILM_GENRE_LINK; DELETE FROM rating [42000-214]
+2022-10-02 18:36:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "DELETE FROM films[*], DELETE FROM FILM_GENRE_LINK; DELETE FROM rating"
+Syntax error in SQL statement "DELETE FROM films[*], DELETE FROM FILM_GENRE_LINK; DELETE FROM rating"; SQL statement:
+DELETE FROM films, DELETE FROM FILM_GENRE_LINK; DELETE FROM rating [42000-214]
+2022-10-02 18:36:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "DELETE FROM films[*], DELETE FROM FILM_GENRE_LINK; DELETE FROM rating"
+Syntax error in SQL statement "DELETE FROM films[*], DELETE FROM FILM_GENRE_LINK; DELETE FROM rating"; SQL statement:
+DELETE FROM films, DELETE FROM FILM_GENRE_LINK; DELETE FROM rating [42000-214]

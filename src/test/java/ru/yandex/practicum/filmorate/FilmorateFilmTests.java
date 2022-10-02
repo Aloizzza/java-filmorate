@@ -85,8 +85,7 @@ public class FilmorateFilmTests {
     @Test
     public void shouldUpdateFilmTest() {
         Film film = new Film(1, "Example", "desc Example"
-                , LocalDate.of(2000, 1, 1)
-                , 100, 0);
+                , LocalDate.of(2000, 1, 1), 100, 0);
         film.setMpa(new Mpa(1, ""));
         TreeSet<Genre> genres = new TreeSet<>();
         genres.add(new Genre(1, ""));
