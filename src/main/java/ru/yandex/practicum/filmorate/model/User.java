@@ -11,6 +11,7 @@ import java.util.Set;
 
 @Data
 public class User {
+
     private Integer id;
 
     @Email(message = "Ошибка в формате почты.")
