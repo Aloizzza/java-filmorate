@@ -31,7 +31,7 @@ public class ErrorHandler {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse incorrectParameter(final ConstraintViolationException e) {
+    public ErrorResponse incorrectInput(final ConstraintViolationException e) {
         return new ErrorResponse(e.getMessage());
     }
 }
