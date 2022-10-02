@@ -10,6 +10,7 @@ import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.Genre;
 import ru.yandex.practicum.filmorate.model.Mpa;
 
+import javax.validation.ConstraintViolationException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.TreeSet;
@@ -48,7 +49,7 @@ public class FilmorateFilmTests {
 
         assertThrows(RuntimeException.class, () -> filmController.create(film));
         film.setName(null);
-        assertThrows(NullPointerException.class, () -> filmController.create(film));
+        assertThrows(ConstraintViolationException.class, () -> filmController.create(film));
     }
 
     @Test
@@ -118,7 +119,7 @@ public class FilmorateFilmTests {
         filmController.create(film);
         filmController.create(film2);
 
-        List<Film> films = filmController.getFilms();
+        List<Film> films = filmController.findAll();
 
         Assertions.assertEquals(films.size(), 2);
     }

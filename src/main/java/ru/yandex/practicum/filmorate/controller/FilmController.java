@@ -41,7 +41,7 @@ public class FilmController {
     }
 
     @GetMapping
-    public List<Film> getFilms() {
+    public List<Film> findAll() {
         log.info("запрошены все фильмы, общее количество: {}", getCountFilms());
         return filmService.findAll();
     }
