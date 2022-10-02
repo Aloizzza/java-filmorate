@@ -1,17 +1,18 @@
 package ru.yandex.practicum.filmorate.model;
 
+import lombok.Data;
 import ru.yandex.practicum.filmorate.constraint.DateAfter;
-import ru.yandex.practicum.filmorate.exception.ConflictException;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.TreeSet;
 
+@Data
 public class Film {
-    private int id;
+    private Integer id;
 
     @NotBlank(message = "Название фильма не может быть пустым.")
     private String name;
@@ -25,31 +26,18 @@ public class Film {
     @Positive(message = "Продолжительность фильма должна быть положительной.")
     private int duration;
 
-    private Set<Integer> usersLikes = new HashSet<>();
+    private int rate;
 
-    public void addLike(int id) {
-        if (usersLikes.contains(id)) {
-            throw new ConflictException("У пользователя уже есть лайк на фильме с id: " + id);
-        }
-        usersLikes.add(id);
-    }
+    @NotNull(message = "Укажите MPA для фильма")
+    private Mpa mpa;
+    private TreeSet<Genre> genres;
 
-    public void removeLike(int id) {
-        if (!usersLikes.contains(id)) {
-            throw new ConflictException("У пользователя нет лайка на фильме с id: " + id);
-        }
-        usersLikes.remove(id);
-    }
-
-    public Integer getLikes(int id) {
-        return usersLikes.size();
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
+    public Film(int id, String name, String description, LocalDate releaseDate, int duration, int rate) {
         this.id = id;
+        this.name = name;
+        this.description = description;
+        this.releaseDate = releaseDate;
+        this.duration = duration;
+        this.rate = rate;
     }
 }
