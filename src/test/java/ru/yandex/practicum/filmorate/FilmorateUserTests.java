@@ -30,7 +30,6 @@ class FilmorateUserTests {
         User user = new User(1, "user1@example", "User1"
                 , "user1", LocalDate.of(2000, 1, 1));
 
-        userController.deleteAll();
         userController.create(user);
         Assertions.assertEquals(userController.getCountUsers(), 1);
     }
@@ -79,7 +78,6 @@ class FilmorateUserTests {
         User userUpd = new User(1, "userNew@example", "UserNew"
                 , "userNew", LocalDate.of(2002, 1, 1));
 
-        userController.deleteAll();
         userController.create(user);
         userController.update(userUpd);
         Assertions.assertEquals(userController.getCountUsers(), 1);
@@ -93,7 +91,6 @@ class FilmorateUserTests {
         User user2 = new User(2, "userNew@example", "UserNew"
                 , "userNew", LocalDate.of(2002, 1, 1));
 
-        userController.deleteAll();
         userController.create(user);
         userController.create(user2);
         Assertions.assertEquals(userController.findAll().size(), 2);
