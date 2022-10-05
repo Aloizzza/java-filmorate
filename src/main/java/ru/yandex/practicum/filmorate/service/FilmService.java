@@ -3,6 +3,7 @@ package ru.yandex.practicum.filmorate.service;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.dao.FilmDbStorage;
 import ru.yandex.practicum.filmorate.dao.UserDbStorage;
+import ru.yandex.practicum.filmorate.exception.BadRequestException;
 import ru.yandex.practicum.filmorate.exception.NotFoundException;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.Genre;
@@ -27,6 +28,15 @@ public class FilmService {
     }
 
     public Optional<Film> update(Film film) {
+        if (film.getId() <= 0 || film.getId() == null) {
+            throw new NotFoundException("id должен быть > 0");
+        }
+        if (getById(film.getId()).isEmpty()) {
+            throw new NotFoundException("фильм для update не найден");
+        }
+        if (film.getMpa().getId() == null) {
+            throw new BadRequestException("фильм должен иметь рейтинг MPA");
+        }
         return filmStorage.update(film);
     }
 
@@ -42,11 +52,11 @@ public class FilmService {
         filmStorage.deleteAll();
     }
 
-    public Optional<Film> getById(int id) {
+    public Optional<Film> getById(Long id) {
         return filmStorage.getById(id);
     }
 
-    public void addLike(int idFilm, int idUser) {
+    public void addLike(Long idFilm, int idUser) {
         if (filmStorage.getById(idFilm) != null && userStorage.getById(idUser) != null
                 && idFilm > 0 && idUser > 0) {
             filmStorage.addLike(idUser, idFilm);
@@ -56,7 +66,7 @@ public class FilmService {
 
     }
 
-    public void removeLike(int idFilm, int idUser) {
+    public void removeLike(Long idFilm, int idUser) {
         if (filmStorage.getById(idFilm) != null && userStorage.getById(idUser) != null) {
             filmStorage.removeLike(idUser, idFilm);
         } else {

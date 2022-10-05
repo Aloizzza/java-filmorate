@@ -24,30 +24,30 @@ public class FilmController {
     @PostMapping
     public Film create(@Valid @RequestBody Film film) {
         filmService.create(film);
-        log.info("добавлен фильм: {}", film.toString());
-        return film;
+        log.info("добавлен фильм: {}", film);
+        return filmService.getById(film.getId()).get();
     }
 
     @PutMapping
     public Optional<Film> update(@Valid @RequestBody Film film) {
-        log.info("обновлен фильм: {}", film.toString());
+        log.info("обновлен фильм: {}", film);
         return filmService.update(film);
     }
 
     @PutMapping("/{id}/like/{userId}")
-    public void addLike(@PathVariable int id, @PathVariable int userId) {
+    public void addLike(@PathVariable Long id, @PathVariable int userId) {
         filmService.addLike(id, userId);
         log.info("пользователю id{} понравился фильм id{}", userId, id);
     }
 
     @GetMapping
     public List<Film> findAll() {
-        log.info("запрошены все фильмы, общее количество: {}", getCountFilms());
+        log.info("запрошены все фильмы, общее количество: {}", filmService.findAll().size());
         return filmService.findAll();
     }
 
     @GetMapping("/{id}")
-    public Optional<Film> getById(@PathVariable int id) {
+    public Optional<Film> getById(@PathVariable Long id) {
         log.info("запрошен фильм id{}", id);
         return filmService.getById(id);
     }
@@ -71,12 +71,8 @@ public class FilmController {
     }
 
     @DeleteMapping("/{id}/like/{userId}")
-    public void removeLike(@PathVariable int id, @PathVariable int userId) {
+    public void removeLike(@PathVariable Long id, @PathVariable int userId) {
         filmService.removeLike(id, userId);
         log.info("пользователею id{} разонравился фильм id{}", userId, id);
-    }
-
-    public int getCountFilms() {
-        return filmService.findAll().size();
     }
 }

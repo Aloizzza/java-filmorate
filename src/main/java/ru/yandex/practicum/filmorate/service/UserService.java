@@ -26,6 +26,12 @@ public class UserService {
     }
 
     public Optional<User> update(User user) {
+        if (user.getId() <= 0 || user.getId() == null) {
+            throw new NotFoundException("id должен быть > 0");
+        }
+        if (getById(user.getId()).isEmpty()) {
+            throw new NotFoundException("пользователь для update не найден");
+        }
         return userStorage.update(user);
     }
 

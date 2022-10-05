@@ -31,7 +31,7 @@ class FilmorateUserTests {
                 , "user1", LocalDate.of(2000, 1, 1));
 
         userController.create(user);
-        Assertions.assertEquals(userController.getCountUsers(), 1);
+        Assertions.assertEquals(userController.findAll().size(), 1);
     }
 
     @Test
@@ -76,7 +76,7 @@ class FilmorateUserTests {
         User userUpd = new User(1, "user1upd@example", "User1upd"
                 , "user1upd", LocalDate.of(2000, 1, 11));
         userController.update(userUpd);
-        Assertions.assertEquals(userController.getCountUsers(), 1);
+        Assertions.assertEquals(userController.findAll().size(), 1);
     }
 
     @Test

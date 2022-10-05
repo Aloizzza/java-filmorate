@@ -28,7 +28,7 @@ public class GenreController {
     }
 
     @GetMapping
-    public List<Optional<Genre>> getAll() {
+    public List<Genre> getAll() {
         log.info("запрошены все жанры");
         return genreStorage.findAll();
     }

@@ -21,11 +21,11 @@ public interface FilmStorage {
 
     void deleteAll();
 
-    Optional<Film> getById(Integer id);
+    Optional<Film> getById(Long id);
 
-    void addLike(int idUser, int idFilm);
+    void addLike(int idUser, Long idFilm);
 
-    void removeLike(int idUser, int idFilm);
+    void removeLike(int idUser, Long idFilm);
 
     List<Optional<Film>> getPopular(Integer limit);
 

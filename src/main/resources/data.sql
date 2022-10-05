@@ -1,30 +1,20 @@
-delete from film_genre_link;
-delete from films;
-delete from friends;
-delete from rating;
-delete from users;
-delete from mpa_rating;
-delete from genres;
+DELETE FROM film_genre_link;
+DELETE FROM films;
+DELETE FROM friends;
+DELETE FROM rating;
+DELETE FROM users;
+DELETE FROM mpa_rating;
+DELETE FROM genres;
 
-insert into MPA_RATING (ID_RATE,NAME)
-values (1,'G');
-insert into MPA_RATING (ID_RATE,NAME)
-values (2,'PG');
-insert into MPA_RATING (ID_RATE,NAME)
-values (3,'PG-13');
-insert into MPA_RATING (ID_RATE,NAME)
-values (4,'R');
-insert into MPA_RATING (ID_RATE,NAME)
-values (5,'NC-17');
-insert into GENRES (ID_GENRE,NAME)
-values (1,'Комедия');
-insert into GENRES (ID_GENRE,NAME)
-values (2,'Драма');
-insert into GENRES (ID_GENRE,NAME)
-values (3,'Мультфильм');
-insert into GENRES (ID_GENRE,NAME)
-values (4,'Триллер');
-insert into GENRES (ID_GENRE,NAME)
-values (5,'Документальный');
-insert into GENRES (ID_GENRE,NAME)
-values (6,'Боевик');
+INSERT INTO mpa_rating (id_rate,name) VALUES (1,'G');
+INSERT INTO mpa_rating (id_rate,name) VALUES (2,'PG');
+INSERT INTO mpa_rating (id_rate,name) VALUES (3,'PG-13');
+INSERT INTO mpa_rating (id_rate,name) VALUES (4,'R');
+INSERT INTO mpa_rating (id_rate,name) VALUES (5,'NC-17');
+
+INSERT INTO genres (id_genre,name) VALUES (1,'Комедия');
+INSERT INTO genres (id_genre,name) VALUES (2,'Драма');
+INSERT INTO genres (id_genre,name) VALUES (3,'Мультфильм');
+INSERT INTO genres (id_genre,name) VALUES (4,'Триллер');
+INSERT INTO genres (id_genre,name) VALUES (5,'Документальный');
+INSERT INTO genres (id_genre,name) VALUES (6,'Боевик');

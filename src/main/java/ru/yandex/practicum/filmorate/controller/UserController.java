@@ -24,14 +24,14 @@ public class UserController {
     @PostMapping
     public User create(@Valid @RequestBody User user){
         userService.create(user);
-        log.info("добавлен новый пользователь: {}", user.toString());
-        return user;
+        log.info("добавлен новый пользователь: {}", user);
+        return userService.getById(user.getId()).get();
     }
 
     @PutMapping
     public User update(@Valid @RequestBody User user){
         userService.update(user);
-        log.info("обновлен пользователь: {}", user.toString());
+        log.info("обновлен пользователь: {}", user);
         return user;
     }
 
@@ -49,7 +49,7 @@ public class UserController {
 
     @GetMapping
     public List<User> findAll() {
-        log.info("запрошены все пользователи, общее количество: {}", getCountUsers());
+        log.info("запрошены все пользователи, общее количество: {}", userService.findAll().size());
         return userService.findAll();
     }
 
@@ -81,9 +81,5 @@ public class UserController {
     public void deleteFriend(@PathVariable int id, @PathVariable int friendId) {
         userService.removeFriend(id, friendId);
         log.info("из друзей пользователя id{} удален id{}", id, friendId);
-    }
-
-    public int getCountUsers() {
-        return userService.findAll().size();
     }
 }

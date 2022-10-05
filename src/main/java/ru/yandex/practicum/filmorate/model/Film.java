@@ -12,7 +12,7 @@ import java.util.TreeSet;
 
 @Data
 public class Film {
-    private Integer id;
+    private Long id;
 
     @NotBlank(message = "Название фильма не может быть пустым.")
     private String name;
@@ -32,7 +32,7 @@ public class Film {
     private Mpa mpa;
     private TreeSet<Genre> genres;
 
-    public Film(int id, String name, String description, LocalDate releaseDate, int duration, int rate) {
+    public Film(Long id, String name, String description, LocalDate releaseDate, int duration, int rate) {
         this.id = id;
         this.name = name;
         this.description = description;

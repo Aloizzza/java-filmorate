@@ -34,15 +34,15 @@ public class GenreDbStorage {
         }
     }
 
-    public List<Optional<Genre>> findAll() {
-        List<Optional<Genre>> list = new ArrayList<>();
+    public List<Genre> findAll() {
+        List<Genre> list = new ArrayList<>();
         SqlRowSet genreRow = jdbcTemplate.queryForRowSet("SELECT * FROM GENRES");
         while (genreRow.next()) {
             Genre genre = new Genre(
                     genreRow.getInt("id_genre"),
                     genreRow.getString("name")
             );
-            list.add(Optional.of(genre));
+            list.add(genre);
         }
         return list;
     }

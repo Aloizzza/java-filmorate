@@ -1,69 +1,68 @@
---DROP TABLE FILMS, FILM_GENRE_LINK, FRIENDS, GENRES, RATING, MPA_RATING, USERS;
+--DROP TABLE films, film_genre_link, friends, genres, rating, mpa_rating, users;
 
-create table if not exists USERS
+CREATE TABLE IF NOT EXISTS users
 (
-    ID_USER  integer auto_increment,
-    NAME     varchar,
-    LOGIN    varchar not null,
-    EMAIL    varchar not null,
-    BIRTHDAY DATE,
-    constraint USERS_PK
-        primary key (ID_USER)
+    id_user  INTEGER AUTO_INCREMENT,
+    name     VARCHAR,
+    login    VARCHAR NOT NULL,
+    email    VARCHAR NOT NULL,
+    birthday DATE,
+    CONSTRAINT users_PK
+        PRIMARY KEY (id_user)
 );
 
-create table if not exists mpa_rating
+CREATE TABLE IF NOT EXISTS mpa_rating
 (
-    id_rate integer,
-    name varchar,
-    constraint MPA_RATING_PK
-        primary key (id_rate)
+    id_rate INTEGER,
+    name    VARCHAR,
+    CONSTRAINT mpa_rating_PK
+        PRIMARY KEY (id_rate)
 );
 
-create table if not exists films
+CREATE TABLE IF NOT EXISTS films
 (
-    id_film integer,
-    name varchar not null,
-    description varchar not null,
-    releasedate date,
-    duration int,
-	rate integer,
-    mpa long references mpa_rating(id_rate),
-    constraint FILMS_PK
-        primary key (id_film)
+    id_film      BIGINT,
+    name         VARCHAR NOT NULL,
+    description  VARCHAR NOT NULL,
+    release_date DATE,
+    duration     INTEGER,
+    rate         INTEGER,
+    mpa          INTEGER REFERENCES mpa_rating(id_rate),
+    CONSTRAINT films_PK
+        PRIMARY KEY (id_film)
 );
 
-create table if not exists genres
+CREATE TABLE IF NOT EXISTS genres
 (
-    id_genre integer,
-    name varchar,
-    constraint GENRES_PK
-        primary key (id_genre)
+    id_genre INTEGER,
+    name     VARCHAR,
+    CONSTRAINT GENRES_PK
+        PRIMARY KEY (id_genre)
 );
 
-create table if not exists film_genre_link
+CREATE TABLE IF NOT EXISTS film_genre_link
 (
-    id_genre      integer not null references GENRES(ID_GENRE),
-    id_film       integer not null references films(id_film),
-    constraint FILM_GENRE_LINK_PK
-        primary key (id_film,id_genre)
+    id_genre INTEGER NOT NULL REFERENCES genres(id_genre),
+    id_film  INTEGER NOT NULL REFERENCES films(id_film),
+    CONSTRAINT film_genre_link_PK
+        PRIMARY KEY (id_film,id_genre)
 );
 
 
 
-create table if not exists rating
+CREATE TABLE IF NOT EXISTS rating
 (
-    id_user integer references USERS(ID_USER),
-	id_film integer references FILMS(ID_FILM),
-    constraint RATING_PK
-        primary key (id_user,id_film)
+    id_user INTEGER REFERENCES users(id_user),
+    id_film INTEGER REFERENCES films(id_film),
+    CONSTRAINT rating_PK
+        PRIMARY KEY (id_user,id_film)
 );
 
-create table if not exists friends
+CREATE TABLE IF NOT EXISTS friends
 (
-    id_user integer references USERS(ID_USER) on delete cascade ,
-    id_friend integer,
-    status integer,
-    constraint FRIENDS_PK
-        primary key (id_user,id_friend)
+    id_user   INTEGER REFERENCES users(id_user) ON DELETE CASCADE,
+    id_friend INTEGER,
+    status    INTEGER,
+    CONSTRAINT friends_PK
+        PRIMARY KEY (id_user,id_friend)
 )
-
