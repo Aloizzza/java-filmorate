@@ -2,25 +2,25 @@ package ru.yandex.practicum.filmorate.service;
 
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.dao.FilmDbStorage;
+import ru.yandex.practicum.filmorate.dao.MpaDbStorage;
 import ru.yandex.practicum.filmorate.dao.UserDbStorage;
 import ru.yandex.practicum.filmorate.exception.BadRequestException;
 import ru.yandex.practicum.filmorate.exception.NotFoundException;
 import ru.yandex.practicum.filmorate.model.Film;
-import ru.yandex.practicum.filmorate.model.Genre;
-import ru.yandex.practicum.filmorate.model.Mpa;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.TreeSet;
 
 @Service
 public class FilmService {
     private final FilmDbStorage filmStorage;
     private final UserDbStorage userStorage;
+    private final MpaDbStorage mpaStorage;
 
-    public FilmService(FilmDbStorage filmStorage, UserDbStorage userStorage) {
+    public FilmService(FilmDbStorage filmStorage, UserDbStorage userStorage, MpaDbStorage mpaDbStorage) {
         this.userStorage = userStorage;
         this.filmStorage = filmStorage;
+        this.mpaStorage = mpaDbStorage;
     }
 
     public Optional<Film> create(Film film) {
@@ -82,13 +82,5 @@ public class FilmService {
         }
         List<Optional<Film>> listOrder = filmStorage.getPopular(count);
         return listOrder;
-    }
-
-    public Mpa getMpa(int idMpa) {
-        return filmStorage.getMpa(idMpa);
-    }
-
-    public TreeSet<Genre> getGenres(Film film) {
-        return filmStorage.getGenres(film);
     }
 }
