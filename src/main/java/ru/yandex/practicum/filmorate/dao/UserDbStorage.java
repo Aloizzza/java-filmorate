@@ -3,7 +3,6 @@ package ru.yandex.practicum.filmorate.dao;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
-import ru.yandex.practicum.filmorate.exception.NotFoundException;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
 
@@ -27,9 +26,6 @@ public class UserDbStorage implements UserStorage {
 
     @Override
     public Optional<User> getById(Integer id) {
-        if (id == null || id <= 0) {
-            throw new NotFoundException("id должен быть >0");
-        }
         SqlRowSet userRows = jdbcTemplate.queryForRowSet("SELECT * FROM users WHERE id_user = ?", id);
 
         if (userRows.next()) {
@@ -40,13 +36,13 @@ public class UserDbStorage implements UserStorage {
                     userRows.getString("login"),
                     userRows.getDate("birthday").toLocalDate());
             return Optional.of(user);
-        } else {
-            throw new NotFoundException("По указанному id не найден пользователь");
         }
+
+        return Optional.empty();
     }
 
     @Override
-    public Optional<User> create(User user) {
+    public User create(User user) {
 
         if (user.getName().equals("") || user.getName() == null) {
             user.setName(user.getLogin());
@@ -56,22 +52,23 @@ public class UserDbStorage implements UserStorage {
         jdbcTemplate.update("INSERT INTO users(id_user, name, login, email, birthday) values(?,?,?,?,?)"
                 , id, user.getName(), user.getLogin(), user.getEmail(), user.getBirthday());
         SqlRowSet userRow = jdbcTemplate.queryForRowSet("SELECT u.id_user,f.id_friend " +
-                        "FROM users u "
-                        + "LEFT JOIN friends f on u.id_user = F.id_friend "
-                        + "WHERE u.id_user=?", id);
+                "FROM users u "
+                + "LEFT JOIN friends f on u.id_user = F.id_friend "
+                + "WHERE u.id_user=?", id);
         while (userRow.next()) {
             user.setId(userRow.getInt("id_user"));
             user.addFriend(userRow.getInt("id_friend"));
         }
-        return Optional.of(user);
+        return user;
     }
 
     @Override
-    public Optional<User> update(User user) {
+    public User update(User user) {
         jdbcTemplate.update("UPDATE users SET name=?,login=?,email=?,birthday=? " +
                         "WHERE id_user=?", user.getName(), user.getLogin(), user.getEmail(), user.getBirthday()
                 , user.getId());
-        return Optional.of(user);
+
+        return getById(user.getId()).get();
     }
 
     @Override

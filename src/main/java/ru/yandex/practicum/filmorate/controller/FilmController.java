@@ -8,7 +8,6 @@ import ru.yandex.practicum.filmorate.service.FilmService;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -23,15 +22,16 @@ public class FilmController {
 
     @PostMapping
     public Film create(@Valid @RequestBody Film film) {
-        filmService.create(film);
+        Film newFlm = filmService.create(film);
         log.info("добавлен фильм: {}", film);
-        return filmService.getById(film.getId()).get();
+        return newFlm;
     }
 
     @PutMapping
-    public Optional<Film> update(@Valid @RequestBody Film film) {
+    public Film update(@Valid @RequestBody Film film) {
+        Film updatedFilm = filmService.update(film);
         log.info("обновлен фильм: {}", film);
-        return filmService.update(film);
+        return updatedFilm;
     }
 
     @PutMapping("/{id}/like/{userId}")
@@ -42,19 +42,21 @@ public class FilmController {
 
     @GetMapping
     public List<Film> findAll() {
-        log.info("запрошены все фильмы, общее количество: {}", filmService.findAll().size());
-        return filmService.findAll();
+        List<Film> films = filmService.findAll();
+        log.info("запрошены все фильмы, общее количество: {}", films.size());
+        return films;
     }
 
     @GetMapping("/{id}")
-    public Optional<Film> getById(@PathVariable Long id) {
+    public Film getById(@PathVariable Long id) {
+        Film film = filmService.getById(id);
         log.info("запрошен фильм id{}", id);
-        return filmService.getById(id);
+        return film;
     }
 
     @GetMapping("/popular")
-    public List<Optional<Film>> getPopular(@RequestParam(defaultValue = "0") Integer count) {
-        log.info("запрошены популярные фильмы в количестве {}", ((count == 0) ? 10 : count));
+    public List<Film> getPopular(@RequestParam(defaultValue = "10") Integer count) {
+        log.info("запрошены популярные фильмы в количестве {}", count);
         return filmService.getPopular(count);
     }
 

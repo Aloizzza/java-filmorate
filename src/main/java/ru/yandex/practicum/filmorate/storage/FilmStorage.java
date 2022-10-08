@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface FilmStorage {
-    Optional<Film> create(Film film);
+    Film create(Film film);
 
-    Optional<Film> update(Film film);
+    Film update(Film film);
 
     List<Film> findAll();
 
@@ -22,5 +22,5 @@ public interface FilmStorage {
 
     void removeLike(int idUser, Long idFilm);
 
-    List<Optional<Film>> getPopular(Integer limit);
+    List<Film> getPopular(Integer limit);
 }

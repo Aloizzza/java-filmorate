@@ -8,7 +8,6 @@ import ru.yandex.practicum.filmorate.service.UserService;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -22,17 +21,17 @@ public class UserController {
     }
 
     @PostMapping
-    public User create(@Valid @RequestBody User user){
-        userService.create(user);
+    public User create(@Valid @RequestBody User user) {
+        User newUser = userService.create(user);
         log.info("добавлен новый пользователь: {}", user);
-        return userService.getById(user.getId()).get();
+        return newUser;
     }
 
     @PutMapping
-    public User update(@Valid @RequestBody User user){
-        userService.update(user);
+    public User update(@Valid @RequestBody User user) {
+        User updatedUser = userService.update(user);
         log.info("обновлен пользователь: {}", user);
-        return user;
+        return updatedUser;
     }
 
     @PutMapping("/{id}/friends/{friendId}")
@@ -42,15 +41,17 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public Optional<User> getById(@PathVariable int id) {
+    public User getById(@PathVariable int id) {
+        User user = userService.getById(id);
         log.info("запрошен пользователь id{}", id);
-        return userService.getById(id);
+        return user;
     }
 
     @GetMapping
     public List<User> findAll() {
-        log.info("запрошены все пользователи, общее количество: {}", userService.findAll().size());
-        return userService.findAll();
+        List<User> users = userService.findAll();
+        log.info("запрошены все пользователи, общее количество: {}", users.size());
+        return users;
     }
 
     @GetMapping("/{id}/friends")

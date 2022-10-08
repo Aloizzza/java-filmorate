@@ -17,21 +17,21 @@ public class UserService {
         this.userStorage = userStorage;
     }
 
-    public Optional<User> getById(int id) {
-        return userStorage.getById(id);
+    public User getById(int id) {
+        Optional<User> user = userStorage.getById(id);
+        if (user.isPresent()) {
+            return user.get();
+        } else {
+            throw new NotFoundException("По указанному id не найден пользователь");
+        }
     }
 
-    public Optional<User> create(User user) {
+    public User create(User user) {
         return userStorage.create(user);
     }
 
-    public Optional<User> update(User user) {
-        if (user.getId() <= 0 || user.getId() == null) {
-            throw new NotFoundException("id должен быть > 0");
-        }
-        if (getById(user.getId()).isEmpty()) {
-            throw new NotFoundException("пользователь для update не найден");
-        }
+    public User update(User user) {
+        getById(user.getId());
         return userStorage.update(user);
     }
 
@@ -48,31 +48,32 @@ public class UserService {
     }
 
     public void addFriend(int id1, int id2) {
-        if (userStorage.getById(id1) != null && userStorage.getById(id2) != null
-                && !(id1 <= 0) && !(id2 <= 0)) {
+        if (userStorage.getById(id1).isPresent() && userStorage.getById(id2).isPresent()) {
             userStorage.addFriend(id1, id2);
         } else {
-            throw new NotFoundException("user с id=" + id1 + " или id=" + id2 + " не найден");
+            throw new NotFoundException("По указанным id не найден один из пользователей");
         }
-
+/*        userStorage.getById(id1);
+        userStorage.getById(id2);*/
+        //userStorage.addFriend(id1, id2);
     }
 
     public void removeFriend(int id1, int id2) {
-        if (userStorage.getById(id1) != null && userStorage.getById(id2) != null
-                && !(id1 <= 0) && !(id2 <= 0)) {
+        if (userStorage.getById(id1).isPresent() && userStorage.getById(id2).isPresent()) {
             userStorage.deleteFriend(id1, id2);
         } else {
-            throw new NotFoundException("user с id=" + id1 + " или id=" + id2 + " не найден");
+            throw new NotFoundException("По указанным id не найден один из пользователей");
         }
+/*        userStorage.getById(id1);
+        userStorage.getById(id2);
+        userStorage.deleteFriend(id1, id2);*/
     }
 
     public List<User> getFriends(int id) {
-        List<User> list = userStorage.getFriends(id);
-        return list;
+        return userStorage.getFriends(id);
     }
 
     public List<User> getCommonFriends(int id1, int id2) {
-        List<User> commonFriends = userStorage.getCommonFriends(id1, id2);
-        return commonFriends;
+        return userStorage.getCommonFriends(id1, id2);
     }
 }
