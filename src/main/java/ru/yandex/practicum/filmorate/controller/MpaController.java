@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.yandex.practicum.filmorate.dao.MpaDbStorage;
+import ru.yandex.practicum.filmorate.exception.NotFoundException;
 import ru.yandex.practicum.filmorate.model.Mpa;
 
 import java.util.List;
@@ -22,13 +23,18 @@ public class MpaController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Mpa> getById(@PathVariable int id) {
-        log.info("запрошен MPA id{}", id);
-        return mpaStorage.getById(id);
+    public Mpa getById(@PathVariable int id) {
+        Optional<Mpa> mpa = mpaStorage.getById(id);
+        if (mpa.isPresent()) {
+            log.info("запрошен MPA id{}", id);
+            return mpa.get();
+        } else {
+            throw new NotFoundException("По указанному id не найден MPA");
+        }
     }
 
     @GetMapping
-    public List<Optional<Mpa>> getAll() {
+    public List<Mpa> getAll() {
         log.info("запрошены все mpa");
         return mpaStorage.findAll();
     }

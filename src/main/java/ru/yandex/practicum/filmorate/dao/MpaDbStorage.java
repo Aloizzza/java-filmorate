@@ -34,15 +34,15 @@ public class MpaDbStorage {
         }
     }
 
-    public List<Optional<Mpa>> findAll() {
-        List<Optional<Mpa>> list = new ArrayList<>();
+    public List<Mpa> findAll() {
+        List<Mpa> list = new ArrayList<>();
         SqlRowSet mpaRow = jdbcTemplate.queryForRowSet("SELECT * FROM mpa_rating");
         while (mpaRow.next()) {
             Mpa mpa = new Mpa(
                     mpaRow.getInt("id_rate"),
                     mpaRow.getString("name")
             );
-            list.add(Optional.of(mpa));
+            list.add(mpa);
         }
         return list;
     }

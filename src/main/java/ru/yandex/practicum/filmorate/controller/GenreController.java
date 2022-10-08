@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.yandex.practicum.filmorate.dao.GenreDbStorage;
+import ru.yandex.practicum.filmorate.exception.NotFoundException;
 import ru.yandex.practicum.filmorate.model.Genre;
 
 import java.util.List;
@@ -22,9 +23,14 @@ public class GenreController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Genre> getById(@PathVariable int id) {
-        log.info("запрошен жанр id{}", id);
-        return genreStorage.getById(id);
+    public Genre getById(@PathVariable int id) {
+        Optional<Genre> genre = genreStorage.getById(id);
+        if (genre.isPresent()) {
+            log.info("запрошен жанр id{}", id);
+            return genre.get();
+        } else {
+            throw new NotFoundException("По указанному id не найден жанр");
+        }
     }
 
     @GetMapping
