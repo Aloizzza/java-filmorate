@@ -25,17 +25,17 @@ public class MpaController {
     @GetMapping("/{id}")
     public Mpa getById(@PathVariable int id) {
         Optional<Mpa> mpa = mpaStorage.getById(id);
-        if (mpa.isPresent()) {
+        if (mpa.isEmpty()) {
+            throw new NotFoundException("По указанному id не найден MPA");
+        } else {
             log.info("запрошен MPA id{}", id);
             return mpa.get();
-        } else {
-            throw new NotFoundException("По указанному id не найден MPA");
         }
     }
 
     @GetMapping
     public List<Mpa> getAll() {
-        log.info("запрошены все mpa");
+        log.info("запрошены все MPA");
         return mpaStorage.findAll();
     }
 }

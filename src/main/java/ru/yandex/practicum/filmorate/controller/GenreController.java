@@ -25,11 +25,11 @@ public class GenreController {
     @GetMapping("/{id}")
     public Genre getById(@PathVariable int id) {
         Optional<Genre> genre = genreStorage.getById(id);
-        if (genre.isPresent()) {
+        if (genre.isEmpty()) {
+            throw new NotFoundException("По указанному id не найден жанр");
+        } else {
             log.info("запрошен жанр id{}", id);
             return genre.get();
-        } else {
-            throw new NotFoundException("По указанному id не найден жанр");
         }
     }
 

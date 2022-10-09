@@ -7,7 +7,6 @@ import ru.yandex.practicum.filmorate.exception.NotFoundException;
 import ru.yandex.practicum.filmorate.model.Film;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class FilmService {
@@ -41,12 +40,8 @@ public class FilmService {
     }
 
     public Film getById(Long id) {
-        Optional<Film> film = filmStorage.getById(id);
-        if (film.isPresent()) {
-            return film.get();
-        } else {
-            throw new NotFoundException("По указанному id не найден фильм");
-        }
+        return filmStorage.getById(id)
+                .orElseThrow(() -> new NotFoundException("По указанному id не найден фильм"));
     }
 
     public void addLike(Long idFilm, int idUser) {
@@ -56,10 +51,10 @@ public class FilmService {
     }
 
     public void removeLike(Long idFilm, int idUser) {
-        if (filmStorage.getById(idFilm).isPresent() && userStorage.getById(idUser).isPresent()) {
-            filmStorage.removeLike(idUser, idFilm);
-        } else {
+        if (filmStorage.getById(idFilm).isEmpty() || userStorage.getById(idUser).isEmpty()) {
             throw new NotFoundException("По указанным id не найден фильм или пользователь");
+        } else {
+            filmStorage.removeLike(idUser, idFilm);
         }
     }
 

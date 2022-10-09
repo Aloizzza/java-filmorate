@@ -6,7 +6,6 @@ import ru.yandex.practicum.filmorate.exception.NotFoundException;
 import ru.yandex.practicum.filmorate.model.User;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {
@@ -18,12 +17,8 @@ public class UserService {
     }
 
     public User getById(int id) {
-        Optional<User> user = userStorage.getById(id);
-        if (user.isPresent()) {
-            return user.get();
-        } else {
-            throw new NotFoundException("По указанному id не найден пользователь");
-        }
+        return userStorage.getById(id)
+                .orElseThrow(() -> new NotFoundException("По указанному id не найден пользователь"));
     }
 
     public User create(User user) {
@@ -48,25 +43,19 @@ public class UserService {
     }
 
     public void addFriend(int id1, int id2) {
-        if (userStorage.getById(id1).isPresent() && userStorage.getById(id2).isPresent()) {
-            userStorage.addFriend(id1, id2);
-        } else {
+        if (userStorage.getById(id1).isEmpty() || userStorage.getById(id2).isEmpty()) {
             throw new NotFoundException("По указанным id не найден один из пользователей");
+        } else {
+            userStorage.addFriend(id1, id2);
         }
-/*        userStorage.getById(id1);
-        userStorage.getById(id2);*/
-        //userStorage.addFriend(id1, id2);
     }
 
     public void removeFriend(int id1, int id2) {
-        if (userStorage.getById(id1).isPresent() && userStorage.getById(id2).isPresent()) {
-            userStorage.deleteFriend(id1, id2);
-        } else {
+        if (userStorage.getById(id1).isEmpty() || userStorage.getById(id2).isEmpty()) {
             throw new NotFoundException("По указанным id не найден один из пользователей");
+        } else {
+            userStorage.deleteFriend(id1, id2);
         }
-/*        userStorage.getById(id1);
-        userStorage.getById(id2);
-        userStorage.deleteFriend(id1, id2);*/
     }
 
     public List<User> getFriends(int id) {

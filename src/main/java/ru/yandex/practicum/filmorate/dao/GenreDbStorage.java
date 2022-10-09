@@ -19,9 +19,6 @@ public class GenreDbStorage {
     }
 
     public Optional<Genre> getById(Integer id) {
-        if (id == null || id <= 0) {
-            throw new NotFoundException("unknown genre");
-        }
         SqlRowSet genreRow = jdbcTemplate.queryForRowSet("SELECT * FROM GENRES WHERE ID_GENRE=?", id);
         if (genreRow.next()) {
             Genre genre = new Genre(
