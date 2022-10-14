@@ -1,7 +1,6 @@
 package ru.yandex.practicum.filmorate.model;
 
-import ru.yandex.practicum.filmorate.exception.ConflictException;
-import ru.yandex.practicum.filmorate.exception.NotFoundException;
+import lombok.Data;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -10,60 +9,37 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
+@Data
 public class User {
-    private int id;
+
+    private Integer id;
+
     @Email(message = "Ошибка в формате почты.")
     private String email;
+
     @NotBlank(message = "Поле 'Логин' не может быть пустым.")
     private String login;
+
     private String name;
-    @Past(message = "Дата рождения не модет быть в будущем.")
+
+    @Past(message = "Дата рождения не может быть в будущем.")
     private LocalDate birthday;
+
     private Set<Integer> friends = new HashSet<>();
 
-    public void addFriend(int id) {
-        if (friends.contains(id)) {
-            throw new ConflictException("У пользователя уже есть друг с указанным id: " + id);
-        }
+    public User(Integer id, String email, String name, String login, LocalDate birthday) {
+        this.id = id;
+        this.email = email;
+        this.name = name;
+        this.login = login;
+        this.birthday = birthday;
+    }
+
+    public void addFriend(Integer id) {
         friends.add(id);
     }
 
-    public void removeFriend(int id) {
-        if (!friends.contains(id)) {
-            throw new NotFoundException("У пользователя нет друга с указанным id: " + id);
-        }
+    public void removeFriend(Integer id) {
         friends.remove(id);
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Set<Integer> getFriends() {
-        return friends;
-    }
-
-    public void setFriends(Set<Integer> friends) {
-        this.friends = friends;
     }
 }
